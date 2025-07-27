@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css">
+  <title>Login</title>
+</head>
+<body>
+
+  <form th:action="@{/auth/login}" method="post">
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" required>
+
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" required>
+
+    <button type="submit">Login</button>
+  </form>
+
+  <p th:if="${param.error}" style="color: red;">The user doesn't exist!</p>
+
+  <p>Do not have an account ? <a th:href="@{/auth/register}">Register</a></p>
+
+</body>
+</html>

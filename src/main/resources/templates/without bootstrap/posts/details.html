@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0">
+    <title>Post Details</title>
+</head>
+<body>
+
+    <h1>Post Details</h1>
+    <p th:text="'Category: ' + ${post.category.name}">Category</p>
+    <p th:text="'Title: ' + ${post.title}">Title</p>
+    <p th:text="'Content: ' + ${post.content}">Content</p>
+    <p th:text="'Author: ' + ${post.author.username}">Author</p>
+    <p th:text="'Created at: ' + ${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">Created At</p>
+    <img th:src="${post.imageUrl}" th:alt="${post.title} + ' image'" width="400" height="350">
+
+    <!-- COMMENTS -->
+    <h2>Comments</h2>
+    <hr>
+    <div th:each="comment : ${comments}">
+        <p th:text="${comment.content + ' - ' + comment.author.username}">Comment Content - Comment Author</p>
+    </div>
+    <form th:action="@{/comments/add/{postId}(postId=${post.id})}" method="post">
+        <label for="comment">Your Comment:</label>
+        <input id="comment" type="text" name="content">
+        <button type="submit">Add comment</button>
+    </form>
+
+    <a th:href="@{/posts/edit/{id}(id=${post.id})}">Edit Post</a>
+    <a th:href="@{/posts/delete/{id}(id=${post.id})}">Delete post</a>
+    <a th:href="@{/posts}">Back to posts list</a>
+
+</body>
+</html>

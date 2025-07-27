@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" />
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <title>Post Details</title>
+</head>
+<body class="bg-dark text-light py-4">
+
+<div class="container" style="max-width: 720px; border-left: 5px solid orange; padding-left: 1rem;">
+    <h1 class="mb-4 text-warning">Post Details</h1>
+
+    <p th:text="'Category: ' + ${post.category.name}" class="fs-5"></p>
+    <p th:text="'Title: ' + ${post.title}" class="fs-5 fw-semibold"></p>
+    <p th:text="'Content: ' + ${post.content}" class="fs-6"></p>
+    <p th:text="'Author: ' + ${post.author.username}" class="text-secondary"></p>
+    <p th:text="'Created at: ' + ${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}" class="text-secondary mb-3"></p>
+
+    <img th:src="${post.imageUrl}" th:alt="${post.title} + ' image'" class="img-fluid rounded mb-4" style="max-height: 350px; width: auto;" />
+
+    <h2 class="text-warning">Comments</h2>
+    <hr class="border-warning" />
+
+    <div th:each="comment : ${comments}" class="mb-2">
+        <p th:text="${comment.content + ' - ' + comment.author.username}" class="bg-secondary p-2 rounded text-light"></p>
+    </div>
+
+    <form th:action="@{/comments/add/{postId}(postId=${post.id})}" method="post" class="d-flex gap-2 mb-4">
+        <label for="comment" class="visually-hidden">Your Comment:</label>
+        <input id="comment" type="text" name="content" class="form-control bg-dark text-light border-warning" placeholder="Your Comment" required />
+        <button type="submit" class="btn btn-warning fw-bold">Add comment</button>
+    </form>
+
+    <div class="d-flex gap-3 mb-3">
+        <a th:href="@{/posts/edit/{id}(id=${post.id})}" class="btn btn-outline-warning">Edit Post</a>
+        <a th:href="@{/posts/delete/{id}(id=${post.id})}" class="btn btn-outline-danger">Delete Post</a>
+        <a th:href="@{/posts}" class="btn btn-outline-light">Back to Posts List</a>
+    </div>
+</div>
+
+<script th:src="@{/js/bootstrap.bundle.js}"></script>
+</body>
+</html>

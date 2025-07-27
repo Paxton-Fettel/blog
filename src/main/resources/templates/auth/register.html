@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta content="width=device-width, initial-scale=1.0" />
+  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+  <title>Register</title>
+</head>
+<body class="bg-dark text-light d-flex justify-content-center align-items-center" style="height:100vh;">
+
+<div class="bg-secondary p-4 rounded" style="min-width: 360px; border-left: 5px solid orange;">
+  <form th:action="@{/auth/register}" method="post" th:object="${user}" class="d-flex flex-column gap-3">
+
+    <label for="username" class="form-label text-warning">Username:</label>
+    <input type="text" th:field="*{username}" id="username" required class="form-control bg-dark text-light border-warning" />
+    <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger mb-2"></p>
+
+    <label for="email" class="form-label text-warning">Email:</label>
+    <input type="email" th:field="*{email}" id="email" required class="form-control bg-dark text-light border-warning" />
+    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger mb-2"></p>
+
+    <label for="password" class="form-label text-warning">Password:</label>
+    <input type="password" th:field="*{password}" id="password" required class="form-control bg-dark text-light border-warning" />
+
+    <button type="submit" class="btn btn-warning fw-bold mt-3">Register</button>
+  </form>
+
+  <p class="mt-3 text-center">
+    Already have an account ? <a th:href="@{/auth/login}" class="text-warning text-decoration-none">Login</a>
+  </p>
+</div>
+
+<script th:src="@{/js/bootstrap.bundle.js}"></script>
+</body>
+</html>

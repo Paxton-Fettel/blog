@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0">
+    <title>Create a new post</title>
+</head>
+<body>
+
+    <h1>Create a new post</h1>
+    <form th:action="@{/posts/create}" method="post" th:object="${newPost}" enctype="multipart/form-data">
+
+        <!-- TITLE -->
+        <label for="title">Title:</label>
+        <input id="title" type="text" th:field="*{title}" required>
+
+        <!-- CONTENT -->
+        <label for="content">Content:</label>
+        <input type="text" id="content" th:field="*{content}" required>
+
+        <!-- CATEGORY -->
+        <label for="category">Category:</label>
+        <select id="category" th:field="*{category}">
+            <option th:each="category : ${categories}" th:text="${category.name}" th:value="${category.id}"></option>
+        </select>
+
+        <!-- IMAGE -->
+        <label for="imageFile">Image File:</label>
+        <input type="file" id="imageFile" name="imageFile" required>
+
+        <button type="submit">Create Post</button>
+    </form>
+
+</body>
+</html>

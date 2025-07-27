@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+</head>
+<body>
+
+    <h1>Edit post</h1>
+    <form th:action="@{/posts/edit/{id}(id=${post.id})}" method="post" th:object="${post}" enctype="multipart/form-data">
+
+        <!-- TITLE -->
+        <label for="title">Title:</label>
+        <input id="title" type="text" th:field="*{title}">
+
+        <!-- CONTENT -->
+        <label for="content">Content:</label>
+        <input type="text" id="content" th:field="*{content}">
+
+        <!-- CATEGORY -->
+        <label for="category">Category:</label>
+        <select id="category" th:field="*{category}">
+            <option th:each="category : ${categories}" th:text="${category.name}" th:value="${category.id}"></option>
+        </select>
+
+        <!-- CURRENT IMAGE -->
+        <img th:src="${post.imageUrl}" th:alt="${post.title} + ' image'" width="400" height="350">
+
+        <!-- CHANGE IMAGE -->
+        <label for="imageFile">Image File:</label>
+        <input type="file" id="imageFile" name="imageFile">
+
+        <button type="submit">Update Post</button>
+    </form>
+
+    <a th:href="@{/posts/{id}(id=${post.id})}">Back to post</a>
+
+</body>
+</html>

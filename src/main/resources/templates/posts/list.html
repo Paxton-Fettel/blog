@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" />
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <title>Posts</title>
+</head>
+<body class="bg-dark text-light py-4">
+
+<div class="container" style="max-width: 800px; border-left: 5px solid orange; padding-left: 1rem;">
+
+    <p th:text="'Hello ' + ${#authentication.name}" class="fs-5 mb-3"></p>
+
+    <h1 class="mb-4 text-warning">Posts</h1>
+
+    <div th:each="post : ${posts}" class="mb-4 p-3 bg-secondary rounded">
+        <p th:text="${post.title}" class="fs-4 fw-semibold text-warning mb-1"></p>
+        <p th:text="${post.content}" class="mb-2"></p>
+        <p class="text-muted mb-1" th:text="'Author: ' + ${post.author.username}"></p>
+        <p class="text-muted mb-2" th:text="'Created At: ' + ${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></p>
+
+        <div class="d-flex flex-column align-items-start mb-3 w-auto" style="max-width: 300px;">
+            <img th:src="@{${post.imageUrl}}" alt="post image" class="img-thumbnail rounded mb-2" style="width: 100%; height: auto;" />
+            <a th:href="@{/posts/{id}(id=${post.id})}" class="btn btn-sm btn-warning w-100">View Post</a>
+        </div>
+
+        <hr class="border-warning mt-3" />
+    </div>
+
+
+    <nav aria-label="Page navigation" class="d-flex justify-content-center gap-3 mb-4">
+        <a th:if="${posts.hasPrevious()}" th:href="@{/posts(page=${posts.number - 1})}" class="btn btn-outline-warning">Previous</a>
+
+        <span th:each="i : ${#numbers.sequence(0, posts.totalPages - 1)}">
+        <a th:href="@{/posts(page=${i})}" th:text="${i + 1}"
+           class="btn btn-outline-secondary"></a>
+      </span>
+
+        <a th:if="${posts.hasNext()}" th:href="@{/posts(page=${posts.number + 1})}" class="btn btn-outline-warning">Next</a>
+    </nav>
+
+    <div class="d-flex gap-3">
+        <a th:href="@{/posts/create}" class="btn btn-warning">Create a new post</a>
+        <a th:href="@{/auth/logout}" class="btn btn-outline-light">Logout</a>
+    </div>
+
+</div>
+
+<script th:src="@{/js/bootstrap.bundle.js}"></script>
+</body>
+</html>

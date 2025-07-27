@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" />
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <title>Create a new post</title>
+</head>
+<body class="bg-dark text-light d-flex justify-content-center align-items-start py-5" style="min-height:100vh;">
+
+<div class="bg-secondary p-4 rounded" style="width: 100%; max-width: 480px; border-left: 5px solid orange;">
+    <h1 class="mb-4 text-warning">Create a new post</h1>
+    <form th:action="@{/posts/create}" method="post" th:object="${newPost}" enctype="multipart/form-data" class="d-flex flex-column gap-3">
+
+        <label for="title" class="form-label text-warning">Title:</label>
+        <input id="title" type="text" th:field="*{title}" required class="form-control bg-dark text-light border-warning" />
+
+        <label for="content" class="form-label text-warning">Content:</label>
+        <input type="text" id="content" th:field="*{content}" required class="form-control bg-dark text-light border-warning" />
+
+        <label for="category" class="form-label text-warning">Category:</label>
+        <select id="category" th:field="*{category}" class="form-select bg-dark text-light border-warning">
+            <option th:each="category : ${categories}" th:text="${category.name}" th:value="${category.id}"></option>
+        </select>
+
+        <label for="imageFile" class="form-label text-warning">Image File:</label>
+        <input type="file" id="imageFile" name="imageFile" required class="form-control bg-dark text-light border-warning" />
+
+        <button type="submit" class="btn btn-warning fw-bold mt-3">Create Post</button>
+    </form>
+</div>
+
+<script th:src="@{/js/bootstrap.bundle.js}"></script>
+</body>
+</html>
