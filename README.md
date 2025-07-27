@@ -20,4 +20,4 @@ Features include:
 To clone the project, run:
 
 ```bash
-git clone https://github.com/your-username/blog.git
+git clone https://github.com/Paxton-Fettel/blog.git
